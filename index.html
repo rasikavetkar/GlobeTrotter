@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WanderSwipe – Discover Where Your Group Goes Next</title>
-  <meta name="description" content="WanderSwipe helps groups of friends and families vote on travel destinations together using an intuitive swipe-based experience.">
+  <title>GlobeTrotter – Discover Where Your Group Goes Next</title>
+  <meta name="description"
+    content="GlobeTrotter helps groups of friends and families vote on travel destinations together using an intuitive swipe-based experience.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     /* ── Reset & Base ── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #050508;
-      --surface: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.08);
-      --text: #f5f5f7;
-      --muted: rgba(245,245,247,0.45);
-      --accent: #ff477e;
-      --accent2: #00f5d4;
-      --accent-glow: rgba(255,71,126,0.25);
-      --accent2-glow: rgba(0,245,212,0.15);
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    html, body {
+    :root {
+      --bg: #04110d;
+      --surface: rgba(6, 95, 70, 0.15);
+      --border: rgba(52, 211, 153, 0.2);
+      --text: #F8F5F0;
+      --muted: rgba(248, 245, 240, 0.6);
+      --accent: #FB7185;
+      --accent2: #34D399;
+      --accent-glow: rgba(251, 113, 133, 0.25);
+      --accent2-glow: rgba(52, 211, 153, 0.15);
+    }
+
+    html,
+    body {
       height: 100%;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-    }
-
-    /* ── Star field background ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 50% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 65% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25) 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 85%, rgba(255,255,255,0.35) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
+      scroll-behavior: smooth;
     }
 
     /* Ambient gradient blobs */
@@ -57,8 +49,8 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,245,212,0.05) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255,71,126,0.06) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0, 245, 212, 0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255, 71, 126, 0.06) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -124,21 +116,28 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 1px;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 1px;
       background: var(--accent2);
       transition: width 0.3s ease;
     }
 
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
     .nav-cta {
       text-decoration: none;
       padding: 9px 22px;
       border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text);
       font-size: 0.88rem;
       font-weight: 500;
@@ -147,8 +146,8 @@
     }
 
     .nav-cta:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
 
@@ -165,7 +164,9 @@
       width: 100%;
     }
 
-    .hero-copy { max-width: 520px; }
+    .hero-copy {
+      max-width: 520px;
+    }
 
     .hero-eyebrow {
       display: inline-flex;
@@ -179,13 +180,14 @@
       margin-bottom: 28px;
       padding: 6px 14px;
       border-radius: 100px;
-      border: 1px solid rgba(0,245,212,0.2);
-      background: rgba(0,245,212,0.06);
+      border: 1px solid rgba(0, 245, 212, 0.2);
+      background: rgba(0, 245, 212, 0.06);
     }
 
     .hero-eyebrow::before {
       content: '';
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--accent2);
       box-shadow: 0 0 8px var(--accent2);
@@ -193,12 +195,21 @@
     }
 
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
     }
 
     .hero-h1 {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-size: clamp(2.8rem, 5vw, 4.2rem);
       font-weight: 800;
       line-height: 1.08;
@@ -234,12 +245,12 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 15px 32px;
+      padding: 24px 50px;
       border-radius: 100px;
       background: var(--text);
       color: var(--bg);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 1.3rem;
       font-weight: 700;
       text-decoration: none;
       letter-spacing: 0.01em;
@@ -251,38 +262,12 @@
 
     .btn-primary-hero:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
     }
 
     .btn-primary-hero .arrow {
       transition: transform 0.3s;
     }
-
-    .btn-primary-hero:hover .arrow { transform: translateX(4px); }
-
-    .btn-ghost-hero {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 15px 28px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.25s, border-color 0.25s, transform 0.25s;
-      cursor: pointer;
-    }
-
-    .btn-ghost-hero:hover {
-      color: var(--text);
-      border-color: rgba(255,255,255,0.25);
-      transform: translateY(-2px);
-    }
-
     /* Social proof pills */
     .social-proof {
       margin-top: 56px;
@@ -310,7 +295,9 @@
       overflow: hidden;
     }
 
-    .avatar-stack .av:first-child { margin-left: 0; }
+    .avatar-stack .av:first-child {
+      margin-left: 0;
+    }
 
     .social-text {
       font-size: 0.82rem;
@@ -343,13 +330,22 @@
       position: absolute;
       inset: -40px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,245,212,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 245, 212, 0.08) 0%, transparent 70%);
       animation: globe-breathe 6s ease-in-out infinite;
     }
 
     @keyframes globe-breathe {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.04); opacity: 1; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.04);
+        opacity: 1;
+      }
     }
 
     .globe-img {
@@ -358,114 +354,34 @@
       object-fit: contain;
       border-radius: 50%;
       animation: globe-float 8s ease-in-out infinite, globe-spin 80s linear infinite;
-      filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) drop-shadow(0 0 120px rgba(0,100,200,0.2));
+      filter: drop-shadow(0 0 60px rgba(0, 245, 212, 0.15)) drop-shadow(0 0 120px rgba(0, 100, 200, 0.2));
     }
 
     @keyframes globe-float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-18px); }
+
+      0%,
+      100% {
+        translate: 0 0px;
+      }
+
+      50% {
+        translate: 0 -18px;
+      }
     }
 
     @keyframes globe-spin {
-      0%  { filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) hue-rotate(0deg); }
-      100%{ filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) hue-rotate(360deg); }
+      0% {
+        rotate: 0deg;
+      }
+
+      100% {
+        rotate: 360deg;
+      }
     }
 
-    /* Orbit rings */
-    .orbit {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.06);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: orbit-rotate linear infinite;
-    }
 
-    .orbit-1 {
-      width: 110%; height: 110%;
-      animation-duration: 20s;
-    }
 
-    .orbit-2 {
-      width: 130%; height: 130%;
-      border-color: rgba(0,245,212,0.06);
-      animation-duration: 35s;
-      animation-direction: reverse;
-    }
 
-    .orbit-dot {
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%) translateY(-50%);
-      width: 5px; height: 5px;
-      border-radius: 50%;
-    }
-
-    .orbit-1 .orbit-dot { background: rgba(255,71,126,0.8); box-shadow: 0 0 8px rgba(255,71,126,0.6); }
-    .orbit-2 .orbit-dot { background: rgba(0,245,212,0.8); box-shadow: 0 0 8px rgba(0,245,212,0.6); }
-
-    @keyframes orbit-rotate {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to   { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* Destination pins floating near globe */
-    .pin {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 12px;
-      border-radius: 100px;
-      background: rgba(10,12,20,0.8);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--text);
-      white-space: nowrap;
-      animation: pin-float ease-in-out infinite;
-    }
-
-    .pin-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-
-    .pin-1 { top: 15%; left: -10%; animation-duration: 5s; animation-delay: 0s; }
-    .pin-2 { top: 55%; right: -12%; animation-duration: 6s; animation-delay: -2s; }
-    .pin-3 { bottom: 18%; left: 5%; animation-duration: 5.5s; animation-delay: -1s; }
-
-    @keyframes pin-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    /* ── FEATURES BAR ── */
-    .features-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      padding: 24px 60px;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 40px;
-      border-right: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.85rem;
-      font-weight: 400;
-    }
-
-    .feature-item:last-child { border-right: none; }
-
-    .feature-icon {
-      font-size: 1.1rem;
-      opacity: 0.7;
-    }
 
     /* ── ANIMATIONS (entry) ── */
     .fade-up {
@@ -474,14 +390,31 @@
       animation: fadeUp 0.7s ease forwards;
     }
 
-    .fade-up:nth-child(1) { animation-delay: 0.1s; }
-    .fade-up:nth-child(2) { animation-delay: 0.2s; }
-    .fade-up:nth-child(3) { animation-delay: 0.35s; }
-    .fade-up:nth-child(4) { animation-delay: 0.5s; }
-    .fade-up:nth-child(5) { animation-delay: 0.65s; }
+    .fade-up:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .fade-up:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .fade-up:nth-child(3) {
+      animation-delay: 0.35s;
+    }
+
+    .fade-up:nth-child(4) {
+      animation-delay: 0.5s;
+    }
+
+    .fade-up:nth-child(5) {
+      animation-delay: 0.65s;
+    }
 
     @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .slide-in-right {
@@ -491,7 +424,10 @@
     }
 
     @keyframes slideInRight {
-      to { opacity: 1; transform: translateX(0); }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     /* ── Scroll indicator ── */
@@ -520,16 +456,35 @@
     }
 
     @keyframes scroll-line {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      50.01% { transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      50.01% {
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 20px 24px; }
-      .nav-links { display: none; }
+      nav {
+        padding: 20px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
 
       .hero {
         grid-template-columns: 1fr;
@@ -538,24 +493,88 @@
         gap: 48px;
       }
 
-      .hero-copy { max-width: 100%; }
-      .hero-eyebrow { margin: 0 auto 24px; }
-      .hero-p { max-width: 100%; }
-      .hero-actions { justify-content: center; }
-      .social-proof { justify-content: center; }
+      .hero-copy {
+        max-width: 100%;
+      }
 
-      .hero-visual { order: -1; }
-      .globe-wrapper { width: min(320px, 80vw); }
+      .hero-eyebrow {
+        margin: 0 auto 24px;
+      }
 
-      .pin-1 { left: -4%; top: 10%; }
-      .pin-2 { right: -4%; top: 50%; }
-      .pin-3 { display: none; }
+      .hero-p {
+        max-width: 100%;
+      }
 
-      .features-bar { flex-direction: column; gap: 12px; border-top: none; }
-      .feature-item { border: none; padding: 4px 0; }
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .social-proof {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .globe-wrapper {
+        width: min(320px, 80vw);
+      }
+    }
+
+    .contact-section {
+      padding: 100px 5%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .contact-form-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 50px;
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+    }
+    .form-input {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 20px;
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-input:focus {
+      border-color: var(--accent2);
+    }
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    @media (max-width: 900px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .contact-columns {
+        grid-template-columns: 1fr !important;
+      }
+      .form-row {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="page">
 
@@ -563,16 +582,14 @@
     <nav>
       <a href="#" class="nav-logo">
         <span class="nav-logo-icon">🌍</span>
-        <span class="nav-logo-text">WanderSwipe</span>
+        <span class="nav-logo-text">GlobeTrotter</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#contacts">Contacts</a></li>
       </ul>
-
-      <a href="swipe-app.html" class="nav-cta" id="nav-start-btn">Get Started</a>
     </nav>
 
     <!-- HERO -->
@@ -588,16 +605,14 @@
         </h1>
 
         <p class="hero-p fade-up">
-          We surface the destinations your whole group will love. Fast, fair, and surprisingly fun — because the journey starts with the decision.
+          We surface the destinations your whole group will love. Fast, fair, and surprisingly fun — because the journey
+          starts with the decision.
         </p>
 
         <div class="hero-actions fade-up">
-          <a href="swipe-app.html" class="btn-primary-hero" id="hero-start-btn">
+          <a href="quorum.html" class="btn-primary-hero" id="hero-start-btn">
             Start Voting
             <span class="arrow">→</span>
-          </a>
-          <a href="#how-it-works" class="btn-ghost-hero" id="hero-learn-btn">
-            ▶ &nbsp;See how it works
           </a>
         </div>
 
@@ -610,7 +625,7 @@
           </div>
           <p class="social-text">
             <strong>2,400+ groups</strong> have found their perfect destination<br>
-            with WanderSwipe this month.
+            with GlobeTrotter this month.
           </p>
         </div>
       </div>
@@ -618,63 +633,91 @@
       <!-- Right: Globe -->
       <div class="hero-visual slide-in-right">
         <div class="globe-wrapper">
-          <!-- Orbit rings -->
-          <div class="orbit orbit-1">
-            <div class="orbit-dot"></div>
-          </div>
-          <div class="orbit orbit-2">
-            <div class="orbit-dot"></div>
-          </div>
-
           <!-- Globe image -->
-          <img
-            src="hero_globe.png"
-            alt="Planet Earth — explore every corner of the world"
-            class="globe-img"
-            id="globe-img"
-          >
+          <img src="hero_globe.png" alt="Planet Earth — explore every corner of the world" class="globe-img"
+            id="globe-img">
+        </div>
+      </div>
+    </section>
 
-          <!-- Floating pins -->
-          <div class="pin pin-1">
-            <span class="pin-dot" style="background:#ff477e;box-shadow:0 0 6px #ff477e;"></span>
-            🗼 Kyoto, Japan
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section" style="min-height: 100vh; display: flex; align-items: center; padding: 20px;">
+      <div class="hero-copy" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2 class="hero-h1">About GlobeTrotter</h2>
+        <p class="hero-p" style="margin-top: 30px;">
+          Group travel should be exciting, not stressful. GlobeTrotter uses a weighted consensus engine and tactile swipe-based voting to simplify the discovery process. Stop debating, stop waiting—just swipe your favorite spots, review the final quorum together, and embark on a shared adventure that everyone loves.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACTS SECTION -->
+    <section id="contacts" class="contact-section">
+      <div class="contact-container">
+        <div class="contact-left">
+          <h2 class="hero-h1" style="text-align: left; margin-bottom: 20px;">Contact Us</h2>
+          <p style="color: var(--muted); font-size: 1.1rem; max-width: 400px; margin-bottom: 40px; line-height: 1.6;">
+            Email, call, or complete the form to learn how GlobeTrotter can solve your group travel routing.
+          </p>
+
+          <div class="contact-details" style="margin-bottom: 60px;">
+            <p style="margin-bottom: 10px; font-weight: 500;">info@globetrotter.io</p>
+            <p>321-221-231</p>
+            <a href="#" style="color: var(--text); text-decoration: underline; margin-top: 10px; display: inline-block;">Customer Support</a>
           </div>
-          <div class="pin pin-2">
-            <span class="pin-dot" style="background:#00f5d4;box-shadow:0 0 6px #00f5d4;"></span>
-            🏔️ Banff, Canada
+
+          <div class="contact-columns" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+            <div>
+              <h4 style="font-weight: 600; margin-bottom: 15px;">Customer Support</h4>
+              <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.5;">Our support team is available around the clock to address any concerns or queries you may have.</p>
+            </div>
+            <div>
+              <h4 style="font-weight: 600; margin-bottom: 15px;">Feedback and Suggestions</h4>
+              <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.5;">We value your feedback and are continuously working to improve GlobeTrotter. Your input is crucial in shaping the future of GlobeTrotter.</p>
+            </div>
+            <div>
+              <h4 style="font-weight: 600; margin-bottom: 15px;">Media Inquiries</h4>
+              <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.5;">For media-related questions or press inquiries, please contact us at media@globetrotter.io.</p>
+            </div>
           </div>
-          <div class="pin pin-3">
-            <span class="pin-dot" style="background:#ff9f1c;box-shadow:0 0 6px #ff9f1c;"></span>
-            🌊 Santorini, Greece
+        </div>
+
+        <div class="contact-right">
+          <div class="contact-form-card">
+            <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 10px;">Get in Touch</h3>
+            <p style="color: rgba(255,255,255,0.6); margin-bottom: 30px;">You can reach us anytime</p>
+
+            <form>
+              <div style="display: flex; gap: 15px; margin-bottom: 15px;" class="form-row">
+                <input type="text" placeholder="First name" class="form-input">
+                <input type="text" placeholder="Last name" class="form-input">
+              </div>
+
+              <div style="position: relative; margin-bottom: 15px;">
+                <span style="position: absolute; left: 15px; top: 14px; opacity: 0.5;">✉️</span>
+                <input type="email" placeholder="Your email" class="form-input" style="padding-left: 45px; width: 100%;">
+              </div>
+
+              <div style="display: flex; gap: 15px; margin-bottom: 15px;" class="form-row">
+                <select class="form-input" style="width: auto; appearance: none; padding-right: 30px; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;">
+                  <option>+1</option>
+                  <option>+44</option>
+                  <option selected>+62</option>
+                </select>
+                <input type="tel" placeholder="Phone number" class="form-input" style="flex: 1;">
+              </div>
+
+              <textarea placeholder="How can we help?" class="form-input" style="width: 100%; height: 120px; resize: none; margin-bottom: 25px; font-family: inherit;"></textarea>
+
+              <button type="submit" style="width: 100%; background: #0D6EFD; color: #FFF; padding: 18px; border-radius: 12px; border: none; font-weight: 600; font-size: 1.1rem; cursor: pointer;">Submit</button>
+
+              <p style="text-align: center; color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 20px;">
+                By contacting us, you agree to our <strong style="color: var(--text);">Terms of service</strong> and <strong style="color: var(--text);">Privacy Policy</strong>
+              </p>
+            </form>
           </div>
         </div>
       </div>
-
     </section>
-
-    <!-- FEATURES BAR -->
-    <div class="features-bar">
-      <div class="feature-item">
-        <span class="feature-icon">🃏</span>
-        Physics-based swipe cards
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">👥</span>
-        Up to 5 participants
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">⚖️</span>
-        Weighted consensus scoring
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🎉</span>
-        Animated reveal ceremony
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🌍</span>
-        30+ curated destinations
-      </div>
-    </div>
 
   </div>
 
@@ -693,4 +736,5 @@
     });
   </script>
 </body>
+
 </html>

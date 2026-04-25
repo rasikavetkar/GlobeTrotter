@@ -272,8 +272,11 @@
         }
         function setupTopCard() {
             const cards = document.querySelectorAll('.card');
+            if (cards.length === 0) {
+                window.location.href = 'leaderboard.html';
+                return;
+            }
             topCard = cards[cards.length - 1];
-            if (!topCard) return;
             topCard.addEventListener('mousedown', startDrag);
             topCard.addEventListener('touchstart', startDrag);
         }
