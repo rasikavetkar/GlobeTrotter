@@ -7,34 +7,72 @@
   <meta name="description" content="Vote with your group on travel destinations using GlobeTrotter's swipe-based experience.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:wght@400;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Global Background Layer -->
+  <div class="quorum-bg-container">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVLuIMzPXVN3O4BHbg-VQwdEoM6CvNzY-sSx5-Mfq-yVDFnniFwPCkaSKgwdaoH5IFShEYtf1b9nW3GPLB-VR2AYa5ABiH59PeS-jdtyZqUnLczww0oKxe_R0AtyFwdykvy3a1aJrIO-PFrt6extQWHYKEhk3_wxfvPXeXqGp5Jw77pT70RqVHNqrT5x8zURsiWr2R-C_9HPl3KDxZmfkzG29vPWBK_CaOuVlVBrrwotnk4s5lUJlgO8fBdTe_BHaPoZK55QG0_gP-" class="quorum-bg-img" alt="Background">
+    <div class="quorum-bg-overlay"></div>
+  </div>
+
   <div id="app" class="app-container">
+
+    <!-- Top Navigation Header -->
+    <header class="quorum-header">
+      <div class="quorum-header-logo">PROJECT QUORUM</div>
+      <div class="quorum-header-icons">
+        <span class="material-symbols-outlined">groups</span>
+        <span class="material-symbols-outlined">settings</span>
+      </div>
+    </header>
 
     <!-- Start Screen: Session Creation -->
     <section id="start-screen" class="view active">
-      <div class="glass-panel text-center pulse-in">
-        <h1 class="logo-title">GlobeTrotter</h1>
-        <p class="subtitle">Where will your group adventure next?</p>
+      <div class="quorum-panel pulse-in">
+        <div class="quorum-panel-header">
+          <h1 class="quorum-title">Who's joining the adventure?</h1>
+          <p class="quorum-subtitle">Define your travel council to begin the collective journey.</p>
+        </div>
 
-        <form id="session-form" class="mt-8">
-          <div class="input-group">
-            <label for="p1">Participant 1</label>
-            <input type="text" id="p1" required placeholder="Name (e.g. Alice)">
+        <form id="session-form" class="quorum-form">
+          <div class="traveler-fields" id="traveler-fields">
+            <div class="quorum-input-group">
+              <label>COUNCIL MEMBER 1</label>
+              <div class="quorum-input-wrapper">
+                <span class="material-symbols-outlined">person</span>
+                <input type="text" id="p1" required placeholder="Alex Chen">
+              </div>
+            </div>
+            <div class="quorum-input-group">
+              <label>COUNCIL MEMBER 2</label>
+              <div class="quorum-input-wrapper">
+                <span class="material-symbols-outlined">person</span>
+                <input type="text" id="p2" required placeholder="Enter name">
+              </div>
+            </div>
           </div>
-          <div class="input-group">
-            <label for="p2">Participant 2</label>
-            <input type="text" id="p2" required placeholder="Name (e.g. Bob)">
-          </div>
+          
           <div id="extra-participants"></div>
 
-          <div class="flex-between mt-4">
-            <button type="button" id="add-participant-btn" class="btn btn-secondary">+ Add up to 5</button>
-            <button type="submit" id="start-session-btn" class="btn btn-primary">Start Voting</button>
+          <button type="button" id="add-participant-btn" class="quorum-btn-dashed">
+            <span class="material-symbols-outlined">add</span>
+            ADD TRAVELER
+          </button>
+
+          <button type="submit" id="start-session-btn" class="quorum-btn-primary">
+            START VOTING <span class="material-symbols-outlined">rocket_launch</span>
+          </button>
+
+          <div class="quorum-footnote">
+            <span class="material-symbols-outlined">public</span>
+            COLLECTIVE INTELLIGENCE FOR EXPLORATION
           </div>
         </form>
+      </div>
+
       </div>
     </section>
 

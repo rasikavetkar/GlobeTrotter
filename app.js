@@ -76,12 +76,16 @@ elems.addBtn.addEventListener('click', () => {
   if (participantCount >= 5) return;
   participantCount++;
   const div = document.createElement('div');
-  div.className = 'input-group pulse-in';
+  div.className = 'quorum-input-group pulse-in';
   div.innerHTML = `
-    <label for="p${participantCount}">Participant ${participantCount}</label>
-    <input type="text" id="p${participantCount}" required placeholder="Name">
+    <label>COUNCIL MEMBER ${participantCount}</label>
+    <div class="quorum-input-wrapper">
+      <span class="material-symbols-outlined">person</span>
+      <input type="text" id="p${participantCount}" required placeholder="Enter name">
+    </div>
   `;
-  elems.extraContainer.appendChild(div);
+  const container = document.getElementById('traveler-fields');
+  container.appendChild(div);
   if (participantCount === 5) elems.addBtn.style.display = 'none';
 });
 
@@ -385,6 +389,8 @@ function renderPodium(top3) {
   const container = document.getElementById('podium-container');
   container.innerHTML = '';
   
+  const topScore = top3[0] ? top3[0].totalScore : 0;
+
   // Render order: 2, 1, 3 for visual podium
   const order = [1, 0, 2];
   order.forEach(index => {
@@ -393,12 +399,16 @@ function renderPodium(top3) {
     
     // Rank 0 is visually Rank 1
     const visualRank = index + 1;
+    const delta = item.totalScore - topScore;
+    const deltaHtml = visualRank === 1 ? '' : `<p class="delta-score">(${delta} pts)</p>`;
+    const extraClass = visualRank === 1 ? ' spring-zoom' : '';
     
     container.innerHTML += `
-      <div class="podium-item rank-${visualRank}">
+      <div class="podium-item rank-${visualRank}${extraClass}">
         <div class="podium-info">
           <p class="podium-title">${item.title}</p>
           <p class="podium-score">${item.totalScore} Points</p>
+          ${deltaHtml}
         </div>
         <img src="${item.img}" class="podium-img" alt="${item.title}">
         <div class="podium-block">${visualRank === 1 ? '🥇' : visualRank === 2 ? '🥈' : '🥉'}</div>

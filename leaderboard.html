@@ -21,9 +21,9 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(4, 20, 12, 0.72);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(6, 95, 70, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.12);
         }
 
         .aurora-gradient {
@@ -33,8 +33,8 @@
         }
 
         body {
-            background-color: #F8F5F0;
-            color: #065F46;
+            background-color: #04100C;
+            color: #F8F5F0;
             overflow-x: hidden;
         }
     </style>
@@ -44,19 +44,19 @@
             theme: {
                 extend: {
                     "colors": {
-                        "primary": "#065F46",
-                        "secondary": "#34D399",
-                        "tertiary": "#FB7185",
-                        "neutral": "#F8F5F0",
-                        "surface": "#F8F5F0",
-                        "on-surface": "#065F46",
-                        "on-surface-variant": "#065F46",
-                        "primary-container": "#065F46",
-                        "on-primary-container": "#F8F5F0",
-                        "secondary-container": "#34D399",
-                        "on-secondary-container": "#065F46",
-                        "surface-container-highest": "#FB7185",
-                        "on-primary": "#F8F5F0"
+                        "primary": "#34D399",
+                        "secondary": "#FB7185",
+                        "tertiary": "#F8F5F0",
+                        "neutral": "#011A10",
+                        "surface": "#04100C",
+                        "on-surface": "#F8F5F0",
+                        "on-surface-variant": "rgba(248, 245, 240, 0.6)",
+                        "primary-container": "rgba(52, 211, 153, 0.15)",
+                        "on-primary-container": "#34D399",
+                        "secondary-container": "rgba(251, 113, 133, 0.25)",
+                        "on-secondary-container": "#FB7185",
+                        "surface-container-highest": "#065F46",
+                        "on-primary": "#04100C"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -157,8 +157,8 @@
                         </div>
                     </div>
                     <div
-                        class="bg-gradient-to-t from-white/80 to-white/40 backdrop-blur-2xl w-full h-64 rounded-t-2xl flex flex-col items-center justify-center p-6 border border-primary/20 border-b-0 shadow-2xl">
-                        <span class="text-label-sm uppercase tracking-widest text-primary-container mb-1">Winner</span>
+                        class="bg-gradient-to-t from-primary-container to-transparent backdrop-blur-2xl w-full h-64 rounded-t-2xl flex flex-col items-center justify-center p-6 border border-primary/20 border-b-0 shadow-2xl">
+                        <span class="text-label-sm uppercase tracking-widest text-primary mb-1">Winner</span>
                         <h3 class="text-headline-lg text-primary text-center">Santorini</h3>
                         <p class="text-body-lg font-bold text-primary-container mt-2">94% Consensus</p>
                         <div class="mt-4 flex gap-1">
