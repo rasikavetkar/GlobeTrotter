@@ -572,6 +572,102 @@
         flex-direction: column;
       }
     }
+    .about-section-new {
+      padding: 100px 5%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #04110d; /* Dark background from screenshot */
+    }
+    .about-card-container {
+      width: 100%;
+      max-width: 1000px;
+    }
+    .about-card {
+      background: rgba(6, 95, 70, 0.1); /* Dark emerald translucent */
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      border-radius: 40px; /* More rounded as per theme */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      min-height: 500px;
+    }
+    .about-content {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    .about-title-underline {
+      width: 100px;
+      height: 4px;
+      background: #fb7185; /* Pink accent from "perfect" text */
+      margin-bottom: 40px;
+    }
+    .about-description {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(248, 245, 240, 0.7);
+      margin-bottom: 40px;
+    }
+    .about-learn-more {
+      display: inline-block;
+      width: fit-content;
+      padding: 18px 44px;
+      background: #F8F5F0; /* Off-white button style */
+      color: #04110d;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 100px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .about-learn-more:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+    }
+    .about-visual {
+      position: relative;
+      background: radial-gradient(circle at center, rgba(52, 211, 153, 0.1) 0%, transparent 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .about-team-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(52, 211, 153, 0.2));
+    }
+    @media (max-width: 900px) {
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+      .about-visual {
+        order: -1;
+        min-height: 300px;
+      }
+      .about-content {
+        padding: 40px;
+        text-align: center;
+      }
+      .about-title-underline {
+        margin: 0 auto 30px;
+      }
+      .about-learn-more {
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 
@@ -641,12 +737,21 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="about-section" style="min-height: 100vh; display: flex; align-items: center; padding: 20px;">
-      <div class="hero-copy" style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h2 class="hero-h1">About GlobeTrotter</h2>
-        <p class="hero-p" style="margin-top: 30px;">
-          Group travel should be exciting, not stressful. GlobeTrotter uses a weighted consensus engine and tactile swipe-based voting to simplify the discovery process. Stop debating, stop waiting—just swipe your favorite spots, review the final quorum together, and embark on a shared adventure that everyone loves.
-        </p>
+    <section id="about" class="about-section-new">
+      <div class="about-card-container">
+        <div class="about-card">
+          <div class="about-content">
+            <h2 class="about-title">ABOUT US</h2>
+            <div class="about-title-underline"></div>
+            <p class="about-description">
+              At GlobeTrotter, we believe group travel should be about connection, not conflict. Our platform uses a weighted consensus engine and tactile swipe-based voting to simplify the discovery process. We're a team dedicated to making your shared adventures effortless and unforgettable.
+            </p>
+            <a href="#" class="about-learn-more">LEARN MORE</a>
+          </div>
+          <div class="about-visual">
+            <img src="globetrotter_team_dark_vibe_1777110946762.png" alt="Our Team" class="about-team-img">
+          </div>
+        </div>
       </div>
     </section>
 

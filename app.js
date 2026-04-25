@@ -15,18 +15,8 @@ const destinations = [
   { id: 8, title: 'Cape Town, South Africa', vibe: 'Coastal Diversity', duration: '8 Days', img: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?q=80&w=800&auto=format&fit=crop', desc: 'Stunning harbor views, Table Mountain, and nearby rolling vineyards.' },
   { id: 9, title: 'Reykjavik, Iceland', vibe: 'Nordic Nature', duration: '5 Days', img: 'https://images.unsplash.com/photo-1504829857797-ddff29c27927?q=80&w=800&auto=format&fit=crop', desc: 'Geothermal spas, northern lights, and dramatic volcanic landscapes.' },
   { id: 10, title: 'Paris, France', vibe: 'Classic Romance', duration: '4 Days', img: 'https://images.unsplash.com/photo-1502602898657-3e90760e10b1?q=80&w=800&auto=format&fit=crop', desc: 'Iconic architecture, world-class art, and unparalleled culinary delights.' }
-  // Adding more procedurally to reach 30+ easily
+// Only using the 10 hand-crafted destinations
 ];
-
-// Procedural generation to reach 30 destinations
-const extraTitles = ['Tokyo', 'London', 'Rome', 'Seoul', 'Sydney', 'Barcelona', 'Dubai', 'Istanbul', 'Bangkok', 'Prague', 'Amsterdam', 'Vienna', 'Singapore', 'Rio', 'Marrakech', 'Lisbon', 'Venice', 'Budapest', 'Cairo', 'Petra', 'Phuket', 'Maldives', 'Fiji', 'Tasmania', 'Patagonia'];
-for(let i=0; i < extraTitles.length; i++) {
-  destinations.push({
-    id: 11 + i, title: extraTitles[i], vibe: 'Global Adventure', duration: (Math.floor(Math.random()*5)+3)+' Days',
-    img: `https://source.unsplash.com/800x600/?landmark,${extraTitles[i].toLowerCase()}`, 
-    desc: `Discover the unique culture, incredible sights, and local secrets of ${extraTitles[i]}.`
-  });
-}
 
 // --- 2. State Partitioning ---
 const sessionState = {
