@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WanderSwipe – Discover Where Your Group Goes Next</title>
+  <meta name="description" content="WanderSwipe helps groups of friends and families vote on travel destinations together using an intuitive swipe-based experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050508;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #f5f5f7;
+      --muted: rgba(245,245,247,0.45);
+      --accent: #ff477e;
+      --accent2: #00f5d4;
+      --accent-glow: rgba(255,71,126,0.25);
+      --accent2-glow: rgba(0,245,212,0.15);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Star field background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 50% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 85%, rgba(255,255,255,0.35) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient gradient blobs */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,245,212,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255,71,126,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout wrapper ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 60px;
+      position: relative;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .nav-logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1px;
+      background: var(--accent2);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      text-decoration: none;
+      padding: 9px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 60px 60px;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-copy { max-width: 520px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 28px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(0,245,212,0.2);
+      background: rgba(0,245,212,0.06);
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 8px var(--accent2);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-h1 .gradient-word {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff8fab 50%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-p {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 44px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 32px;
+      border-radius: 100px;
+      background: var(--text);
+      color: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+      box-shadow: 0 0 0 0 var(--accent-glow);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary-hero:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+    }
+
+    .btn-primary-hero .arrow {
+      transition: transform 0.3s;
+    }
+
+    .btn-primary-hero:hover .arrow { transform: translateX(4px); }
+
+    .btn-ghost-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 28px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.25s, border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-ghost-hero:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Social proof pills */
+    .social-proof {
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar-stack {
+      display: flex;
+    }
+
+    .avatar-stack .av {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      background: linear-gradient(135deg, #ff477e, #00f5d4);
+      margin-left: -10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #000;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .avatar-stack .av:first-child { margin-left: 0; }
+
+    .social-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .social-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── GLOBE ── */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .globe-wrapper {
+      position: relative;
+      width: min(580px, 50vw);
+      aspect-ratio: 1;
+    }
+
+    /* Outer glow ring */
+    .globe-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,245,212,0.08) 0%, transparent 70%);
+      animation: globe-breathe 6s ease-in-out infinite;
+    }
+
+    @keyframes globe-breathe {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
+    .globe-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      animation: globe-float 8s ease-in-out infinite, globe-spin 80s linear infinite;
+      filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) drop-shadow(0 0 120px rgba(0,100,200,0.2));
+    }
+
+    @keyframes globe-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+
+    @keyframes globe-spin {
+      0%  { filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) hue-rotate(0deg); }
+      100%{ filter: drop-shadow(0 0 60px rgba(0,245,212,0.15)) hue-rotate(360deg); }
+    }
+
+    /* Orbit rings */
+    .orbit {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: orbit-rotate linear infinite;
+    }
+
+    .orbit-1 {
+      width: 110%; height: 110%;
+      animation-duration: 20s;
+    }
+
+    .orbit-2 {
+      width: 130%; height: 130%;
+      border-color: rgba(0,245,212,0.06);
+      animation-duration: 35s;
+      animation-direction: reverse;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%) translateY(-50%);
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+
+    .orbit-1 .orbit-dot { background: rgba(255,71,126,0.8); box-shadow: 0 0 8px rgba(255,71,126,0.6); }
+    .orbit-2 .orbit-dot { background: rgba(0,245,212,0.8); box-shadow: 0 0 8px rgba(0,245,212,0.6); }
+
+    @keyframes orbit-rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Destination pins floating near globe */
+    .pin {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border-radius: 100px;
+      background: rgba(10,12,20,0.8);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      animation: pin-float ease-in-out infinite;
+    }
+
+    .pin-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    .pin-1 { top: 15%; left: -10%; animation-duration: 5s; animation-delay: 0s; }
+    .pin-2 { top: 55%; right: -12%; animation-duration: 6s; animation-delay: -2s; }
+    .pin-3 { bottom: 18%; left: 5%; animation-duration: 5.5s; animation-delay: -1s; }
+
+    @keyframes pin-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── FEATURES BAR ── */
+    .features-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 24px 60px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 40px;
+      border-right: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    .feature-item:last-child { border-right: none; }
+
+    .feature-icon {
+      font-size: 1.1rem;
+      opacity: 0.7;
+    }
+
+    /* ── ANIMATIONS (entry) ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .fade-up:nth-child(1) { animation-delay: 0.1s; }
+    .fade-up:nth-child(2) { animation-delay: 0.2s; }
+    .fade-up:nth-child(3) { animation-delay: 0.35s; }
+    .fade-up:nth-child(4) { animation-delay: 0.5s; }
+    .fade-up:nth-child(5) { animation-delay: 0.65s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(40px);
+      animation: slideInRight 0.9s ease 0.3s forwards;
+    }
+
+    @keyframes slideInRight {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── Scroll indicator ── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--muted));
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll-line {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      50.01% { transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 20px 24px 80px;
+        text-align: center;
+        gap: 48px;
+      }
+
+      .hero-copy { max-width: 100%; }
+      .hero-eyebrow { margin: 0 auto 24px; }
+      .hero-p { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .social-proof { justify-content: center; }
+
+      .hero-visual { order: -1; }
+      .globe-wrapper { width: min(320px, 80vw); }
+
+      .pin-1 { left: -4%; top: 10%; }
+      .pin-2 { right: -4%; top: 50%; }
+      .pin-3 { display: none; }
+
+      .features-bar { flex-direction: column; gap: 12px; border-top: none; }
+      .feature-item { border: none; padding: 4px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-icon">🌍</span>
+        <span class="nav-logo-text">WanderSwipe</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+
+      <a href="swipe-app.html" class="nav-cta" id="nav-start-btn">Get Started</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <!-- Left: Copy -->
+      <div class="hero-copy">
+        <div class="hero-eyebrow fade-up">Group Travel Made Easy</div>
+
+        <h1 class="hero-h1 fade-up">
+          Swipe your way<br>
+          to the <span class="gradient-word">perfect trip</span>
+        </h1>
+
+        <p class="hero-p fade-up">
+          We surface the destinations your whole group will love. Fast, fair, and surprisingly fun — because the journey starts with the decision.
+        </p>
+
+        <div class="hero-actions fade-up">
+          <a href="swipe-app.html" class="btn-primary-hero" id="hero-start-btn">
+            Start Voting
+            <span class="arrow">→</span>
+          </a>
+          <a href="#how-it-works" class="btn-ghost-hero" id="hero-learn-btn">
+            ▶ &nbsp;See how it works
+          </a>
+        </div>
+
+        <div class="social-proof fade-up">
+          <div class="avatar-stack">
+            <div class="av">AK</div>
+            <div class="av">JL</div>
+            <div class="av">MR</div>
+            <div class="av">SP</div>
+          </div>
+          <p class="social-text">
+            <strong>2,400+ groups</strong> have found their perfect destination<br>
+            with WanderSwipe this month.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Globe -->
+      <div class="hero-visual slide-in-right">
+        <div class="globe-wrapper">
+          <!-- Orbit rings -->
+          <div class="orbit orbit-1">
+            <div class="orbit-dot"></div>
+          </div>
+          <div class="orbit orbit-2">
+            <div class="orbit-dot"></div>
+          </div>
+
+          <!-- Globe image -->
+          <img
+            src="hero_globe.png"
+            alt="Planet Earth — explore every corner of the world"
+            class="globe-img"
+            id="globe-img"
+          >
+
+          <!-- Floating pins -->
+          <div class="pin pin-1">
+            <span class="pin-dot" style="background:#ff477e;box-shadow:0 0 6px #ff477e;"></span>
+            🗼 Kyoto, Japan
+          </div>
+          <div class="pin pin-2">
+            <span class="pin-dot" style="background:#00f5d4;box-shadow:0 0 6px #00f5d4;"></span>
+            🏔️ Banff, Canada
+          </div>
+          <div class="pin pin-3">
+            <span class="pin-dot" style="background:#ff9f1c;box-shadow:0 0 6px #ff9f1c;"></span>
+            🌊 Santorini, Greece
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FEATURES BAR -->
+    <div class="features-bar">
+      <div class="feature-item">
+        <span class="feature-icon">🃏</span>
+        Physics-based swipe cards
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">👥</span>
+        Up to 5 participants
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⚖️</span>
+        Weighted consensus scoring
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎉</span>
+        Animated reveal ceremony
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🌍</span>
+        30+ curated destinations
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tiny parallax on globe -->
+  <script>
+    const globeImg = document.getElementById('globe-img');
+    document.addEventListener('mousemove', (e) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      globeImg.style.transform = `translateY(0px) rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+    });
+    document.addEventListener('mouseleave', () => {
+      globeImg.style.transform = '';
+    });
+  </script>
+</body>
+</html>

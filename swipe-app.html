@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>WanderSwipe - Destination Guide</title>
+  <meta name="description" content="A dynamic travel destination guide to vote and find out where you want to go.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    
+    <!-- Start Screen: Session Creation -->
+    <section id="start-screen" class="view active">
+      <div class="glass-panel text-center pulse-in">
+        <h1 class="logo-title">WanderSwipe</h1>
+        <p class="subtitle">Where will your group go next?</p>
+        
+        <form id="session-form" class="mt-8">
+          <div class="input-group">
+            <label for="p1">Participant 1</label>
+            <input type="text" id="p1" required placeholder="Name (e.g. Alice)">
+          </div>
+          <div class="input-group">
+            <label for="p2">Participant 2</label>
+            <input type="text" id="p2" required placeholder="Name (e.g. Bob)">
+          </div>
+          <div id="extra-participants"></div>
+          
+          <div class="flex-between mt-4">
+            <button type="button" id="add-participant-btn" class="btn btn-secondary">+ Add up to 5</button>
+            <button type="submit" id="start-session-btn" class="btn btn-primary">Start Voting</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Swiping Screen -->
+    <section id="swipe-screen" class="view">
+      <div class="header-bar">
+        <div class="participant-badge" id="current-participant-name">Waiting...</div>
+        <div class="progress-indicator" id="progress-text">0 / 30</div>
+      </div>
+      
+      <div class="stack-container" id="card-stack">
+        <!-- Cards injected dynamically via JS -->
+      </div>
+      
+      <div class="action-buttons">
+        <button class="action-btn no-btn" id="btn-no" title="No (Left)">&#10005;</button>
+        <button class="action-btn super-btn" id="btn-love" title="Love (Up)">&#10084;</button>
+        <button class="action-btn yes-btn" id="btn-yes" title="Yes (Right)">&#10003;</button>
+      </div>
+      <div class="instructions-overlay">
+        Swipe Right = Yes, Left = No, Up = Love!
+      </div>
+    </section>
+
+    <!-- Interchange Screen (between participants) -->
+    <section id="interchange-screen" class="view">
+      <div class="glass-panel text-center">
+        <h2>Turn Complete!</h2>
+        <p id="next-turn-text" class="mt-4 text-xl">Pass the device to...</p>
+        <button type="button" id="next-participant-btn" class="btn btn-primary mt-8">I'm Ready</button>
+      </div>
+    </section>
+
+    <!-- Reveal Ceremony Screen -->
+    <section id="reveal-screen" class="view">
+      <!-- Countdown Phase -->
+      <div id="countdown-container" class="countdown-overlay">
+        <h2 id="countdown-timer">3</h2>
+        <p>Calculating Consensus...</p>
+      </div>
+
+      <!-- Results Phase -->
+      <div id="results-container" class="hidden">
+        <h1 class="logo-title text-center text-glow">The Verdict</h1>
+        
+        <div class="podium-container" id="podium-container">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="matrix-container mt-8">
+          <h3>Sentiment Breakdown</h3>
+          <div class="table-responsive">
+            <table id="sentiment-matrix">
+              <!-- Matrix injected here -->
+            </table>
+          </div>
+        </div>
+        
+        <button type="button" id="restart-btn" class="btn btn-secondary mt-8 w-full">Start New Session</button>
+      </div>
+    </section>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>
